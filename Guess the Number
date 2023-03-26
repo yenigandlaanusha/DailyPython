@@ -1,0 +1,16 @@
+import random
+guess = random.randrange(1,6)
+print(guess)
+guess_number=0
+while True:
+    guess_number=guess_number+1
+    val = int(input("Enter your value: "))
+    if (guess == val):
+        print("u have guessed crct")
+    elif (guess > val):
+        print("ur guess is low")
+    elif (guess < val):
+        print("ur guess is high")
+    else:
+        print("Congratulations! You guessed the number in", guess_number, "guesses.")
+        break
