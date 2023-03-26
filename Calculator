@@ -1,0 +1,45 @@
+Method 1 :
+
+print("enter 1 for addition")
+print("enter 2 for subtraction")
+print("enter 3 for multiplication")
+print("enter 4 for division")
+number1=int(input("enter the number 1: "))
+number2=int(input("enter the number 2: "))
+operation=int(input("enter which operation: "))
+if operation == 1:
+    sumofnum=number1+number2
+    print(sumofnum)
+if operation == 2:
+    subofnum=number1-number2
+    print(subofnum)
+if operation == 3:
+    mulofnum=number1*number2
+    print(mulofnum)
+if operation == 4:
+    divofnum=number1/number2
+    print(divofnum)
+    
+Method 2:
+print("enter 1 for addition")
+print("enter 2 for subtraction")
+print("enter 3 for multiplication")
+print("enter 4 for division")
+number1=int(input("enter the number 1: "))
+number2=int(input("enter the number 2: "))
+operation=int(input("enter which operation: "))
+def add(number1,number2):
+    return number1+number2
+    
+if operation == 1:
+    sumofnum=add(number1,number2)
+    print(sumofnum)
+if operation == 2:
+    subofnum=number1-number2
+    print(subofnum)
+if operation == 3:
+    mulofnum=number1*number2
+    print(mulofnum)
+if operation == 4:
+    divofnum=number1/number2
+    print(divofnum)
