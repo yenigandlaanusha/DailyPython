@@ -1,0 +1,31 @@
+import random
+print("welcome to rock paper scissors game")
+print("Enter quit to exit the game")
+moves={
+    "rock":"scissors",
+    "paper":"rock",
+    "scissors":"paper"
+}
+user_score=0
+computer_score=0
+while True:
+    user_move=input("enter your choice").lower()
+    if user_move == 'quit':
+        break
+    if user_move not in moves:
+        print("invalid choice")
+        continue
+    list_choices = random.choice(list(moves.keys()))
+    print(list_choices)
+    print("user move",user_move)
+    print("computer move ",list_choices)
+    if user_move == list_choices:
+        print("tie")
+    elif moves[user_move] == list_choices:
+        user_score=user_score+1
+        print("user win")
+    else:
+        computer_score=computer_score+1
+        print("computer win")
+        
+    print("user score",user_score,"computer_score",computer_score)
