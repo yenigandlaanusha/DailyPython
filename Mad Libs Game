@@ -1,0 +1,6 @@
+noun=input("enter the noun")
+pronoun=input("enter the pronoun")
+verb=input("enter the verb")
+adj=input("enter the adj")
+madlib=f"hello my name is {noun} and im a {pronoun} and im so {verb} and u r so {adj}"
+print(madlib)
