@@ -1,0 +1,31 @@
+def decrypt_letter(letter,shift_amount):
+    decoded_letter= ord(letter.lower())
+    decoded_shift_letter = decoded_letter + shift_amount
+    final_decoded_letter = chr(decoded_shift_letter)
+    return final_decoded_letter
+print(decrypt_letter("N",13))
+
+
+def lasso_letter(letter,shift_amount):
+    letter_code= ord(letter.lower())
+    a_ascii=ord('a')
+    total_alphabets=26
+    true_letter_code = a_ascii + (((letter_code - a_ascii) + shift_amount) % total_alphabets)
+    decoded_letter = chr(true_letter_code)
+    return decoded_letter
+print(lasso_letter("p",-2))
+
+
+def lasso_word(word,shift_amount):
+    decoded_word=""
+    for letter in word:
+        decoded_letter = lasso_letter(letter,shift_amount)
+        decoded_word= decoded_word + decoded_letter
+    return decoded_word
+
+print(lasso_word("terra",13))
+print( "Shifting Ncevy by 13 gives: \n" + lasso_word( "Ncevy", 13 ) )
+print( "Shifting gpvsui by 25 gives: \n" + lasso_word( "gpvsui", 25 ) )
+print( "Shifting ugflgkg by -18 gives: \n" + lasso_word( "ugflgkg", -18 ) )
+print( "Shifting wjmmf by -1 gives: \n" + lasso_word( "wjmmf", -1 ) )
+    
