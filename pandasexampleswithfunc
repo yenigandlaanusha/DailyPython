@@ -1,0 +1,51 @@
+
+import pandas as pd
+dict1 ={'Name':['Priyang','Aadhya','Krisha','Vedant','Parshv',
+                'Mittal','Archana'],
+                'Marks':[98,89,99,87,90,83,99],
+                'Gender':['Male','Female','Female','Male','Male',
+                         'Female','Female']
+               }
+df1=pd.DataFrame(dict1)
+print(df1)
+#applyfunction
+def marks(x):
+    return x/2
+
+m = df1["Marks"].apply(marks)
+print(m)
+
+#create a half_marks column
+df1["half_marks"] = df1["Marks"].apply(marks)
+print(df1)
+#lambdafunction
+df = df1["Marks"].apply(lambda x:x//2)
+print(df)
+#lenfunction
+df = df1["Name"].apply(len)
+print(df)
+#mapfunction
+df = df1["Gender"].map({"Male":0 , "Female":1})
+print(df)
+#drop columns
+print(df1)
+#to drop the columns we need to provide the axis
+#for column axis = 1 snd for row axis is 0
+print(df1.drop("half_marks",axis=1))
+#to drop multiple columns
+print(df1.drop(["half_marks"],axis=1,inplace=True))
+#give the columns
+df1.columns
+#get the index
+df1.index
+df1.sort_values(by="Marks",ascending=False)
+df1.sort_values(by=["Marks","Gender"],ascending=False)
+df2=df1[df1["Gender"]=="Female"]
+print(df2)
+df2=df1[df1["Gender"]=="Female"]["Name"]
+print(df2)
+df2=df1[df1["Gender"]=="Female"]["Marks"]
+print(df2)
+
+df2=df1[df1["Gender"].isin(["Female"])][["Name","Marks"]]
+print(df2)
