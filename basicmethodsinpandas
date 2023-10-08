@@ -1,0 +1,44 @@
+#Pandas important functions
+
+import pandas as pd
+#create a series
+s=pd.Series([1,2,3,4])
+print(s)
+#create a dataframe
+df=pd.DataFrame({"name":["a","b","c"],"age":[1,2,3],"gender":["M","F","M"]})
+print(df)
+#get first 5 rows
+df.head()
+df.head(2)
+#get last 5 rows
+df.tail()
+df.tail(3)
+#get detailed info abt dataframe
+df.info()
+#give whether df is one dimentional or 2 dimensional
+print(df.shape)
+#give the sum,min,max,count,length all these details
+print(df.describe()) #only for int columns
+#if needed for all columns
+df.describe(include="all")
+print(df["gender"].unique() )#get unique columns
+print(df["gender"].nunique()) #no of uniques values
+print(df["gender"].value_counts()) #count of unique values in gender
+#find total no of students having marks between 90 to 100 (inclusive) using between method
+# df[df["marks"]>=90]
+#find total no of students having age between 0 to 2 (inclusive) using between method
+print(df[df["age"]>=2])
+print((df["age"] > 0) & (df["age"] >=2)) #without parenthesis it gives value error for every condition add parenthesis
+#for above condition it gives either thru or false based on condition
+print(df[(df["age"] > 0) & (df["age"] >=2)]) #gives the columns based on condition
+print(len(df[(df["age"] > 0) & (df["age"] >=2)])) #gives the columns based on condition
+print("age")
+print(df["age"].between(0,2))
+print(sum(df["age"].between(0,2)))
+#average age
+df["age"].mean()
+df["age"].max()
+df["age"].min()
+
+
+
