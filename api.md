@@ -256,7 +256,7 @@
 | Request Headers | 'Content-type': 'application/json',  <br> 'Accept': 'application/json' |
 | Request Param | from_dt = &lt;YYYYMMDD&gt;<br>to_dt = &lt;YYYYMMDD&gt;<br>type = &lt;certificate/node&gt;<br>level = &lt;INFO/WARN/HIGH/ERROR&gt; |
 | Response Headers | As per table |
-| Response Body | {<br> "alerts": [<br>&nbsp; { "type": "&lt;certificate/node&gt;",<br>&nbsp;&nbsp;"level": "&lt;INFO/WARN/HIGH/ERROR&gt;",<br>&nbsp;&nbsp; "host_id": "&lt;host_id&gt;",<br>&nbsp;&nbsp; "datetime": "&lt;datetime.isoformat()&gt;",<br>&nbsp;&nbsp; "details": {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"title": "&lt; "&lt;Email Subject&gt;",<br>&nbsp;&nbsp; "key1": "&lt;value1&gt;",  // Example: "cn", "serial_number", etc.<br>&nbsp;&nbsp; "key2": "&lt;value2&gt;,"  // Add more key-value pairs as needed<br>&nbsp;&nbsp; }<br>&nbsp; }<br> ]<br>} |
+| Response Body | {<br> "alerts": [<br>&nbsp; {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "type": "&lt;certificate/node&gt;",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"level": "&lt;INFO/WARN/HIGH/ERROR&gt;",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "host_id": "&lt;host_id&gt;",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "datetime": "&lt;datetime.isoformat()&gt;",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "details": {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"title": "&lt; "&lt;Email Subject&gt;",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "key1": "&lt;value1&gt;",  // Example: "cn", "serial_number", etc.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "key2": "&lt;value2&gt;,"  // Add more key-value pairs as needed<br>&nbsp;&nbsp; }<br>&nbsp; }<br> ]<br>} |
 | Success Response Status | 200 |
 
 ## CertificateManagement
