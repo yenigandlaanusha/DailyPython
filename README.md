@@ -138,7 +138,6 @@
 | Request Headers | 'Content-type': 'application/json',  <br> 'Accept': 'application/json' |
 | Response Headers | As per table |
 | Request Payload | {<br>&nbsp;&nbsp;"url": "certmgmt/email_lists",<br>&nbsp;&nbsp;"email_list_data": [<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"email_list_id": "&lt;email_list_id&gt;",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"email_list_name": "&lt;email_list_name&gt;",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"to": [&lt;{"email1@xyz.com", "email2@xyz.com"}&gt;],<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"cc": [&lt;{"email1@xyz.com", "email2@xyz.com"}&gt;]<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;]<br>} |
-
 | Success Response Status | 200 |
 
 ### FetchEmailList
