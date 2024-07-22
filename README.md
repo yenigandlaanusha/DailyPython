@@ -156,7 +156,7 @@
 | Method - Endpoint | PUT - /certmgmt/email_lists/&lt;email_list_id&gt; |
 | Authentication Mechanism | Basic Auth with CConnect Username - Password |
 | Request Headers | 'Content-type': 'application/json',  <br> 'Accept': 'application/json' |
-| Response Body | {<br>&nbsp; "email_list_name": &lt;email_list_name&gt;, <br>&nbsp; "to": &lt;[{"email1@xyz.com", "email2@xyz.com"}]&gt;, <br>&nbsp; "cc": &lt;[{"email1@xyz.com", "email2@xyz.com"}]&gt; ← Empty list allowed <br>} |
+| Response Body | {<br>&nbsp; "email_list_name": &lt;email_list_name&gt;, <br>&nbsp; "to": &lt;[{"email1@xyz.com", "email2@xyz.com"}]&gt; ← Empty list allowed, <br>&nbsp; "cc": &lt;[{"email1@xyz.com", "email2@xyz.com"}]&gt; ← Empty list allowed <br>} |
 | Response Headers | As per table |
 | Response Body | NA |
 | Success Response Status | 204 |
