@@ -29,8 +29,8 @@
     - [Update Host Unavailability Alert Configuration](#UpdateHostUnavailabilityAlertConfig)
 - [Email Alerts - Reporting](#EmailAlerts-Reporting)
     - [Get Generated Certificate Email Alerts](#GetGeneratedCertEmailAlerts)
-    - [Get Generated Node Unavailability Email Alerts](#GetGeneratedNodeUnavailabilityEmailAlerts)
-    - [Get Generated Node Specific Email Alerts](#GetGeneratedNodeSpecificEmailAlerts)
+    - [Get Generated Host Unavailability Email Alerts](#GetGeneratedHostUnavailabilityEmailAlerts)
+    - [Get Generated Host Specific Email Alerts](#GetGeneratedHostSpecificEmailAlerts)
 - [Certificate Management](#CertificateManagement)
     - [Send Certificate Details By Agent](#SendCertificateDetailsByAgent)
 - [Response Header](#ResponseHeader)
@@ -47,7 +47,7 @@
 | Request Headers | 'Content-type': 'application/json',  <br> 'Accept': 'application/json' |
 | Request Params | detail=<true/false> (Default false) |
 | Response Headers | As per table |
-| Response Body | { <br>&nbsp; "url" : "certmgmt/status", <br>&nbsp; "description": "CertMgmt Service Status Snapshot", <br>&nbsp; "version": Cloud-Connect-Version, <br>&nbsp; "build-no": CertMgmnt-build-no, <br>&nbsp; "status": "IN_SERVICE", <br>&nbsp; "status_data": "message_if_service_fails", <br>&nbsp; "server_time": &lt;host.current_time.isoformat()&gt;, <br>&nbsp; "up_since": &lt;host.up_time.isoformat()&gt;, <br>&nbsp; "up_time": &lt;no_of_days/hours/mins/seconds&gt;, <br>&nbsp; "db_status" : "IN_SERVICE", <br> "cluster": { <br>&nbsp; "nodes": [ <br>&nbsp; { <br>&nbsp;&nbsp; "primary": true, <br>&nbsp;&nbsp; "host_fqdn": "cconnectsub106.stooges.icm" <br>&nbsp; }, <br>&nbsp; { <br>&nbsp;&nbsp; "primary": false, <br>&nbsp;&nbsp; "host_fqdn": "cconnectpub106.stooges.icm" <br>&nbsp; } <br>&nbsp; ] <br> }, <br> "onboard_count": &lt;active_onboard_nodes&gt;, <br> "managed_hosts": [ <-- for detail=true <br>&nbsp; { <br>&nbsp;&nbsp; "url" : "certmgmt/host/&lt;node.id&gt;" <br>&nbsp;&nbsp; "host_id":&lt;host_id&gt;, <br>&nbsp;&nbsp; "hostname":&lt;hostname&gt;, <br>&nbsp;&nbsp; "last_contact_time":&lt;last_contact_time&gt; <br>&nbsp;} <br>&nbsp; ] <br> } |
+| Response Body | { <br>&nbsp; "url" : "certmgmt/status", <br>&nbsp; "description": "CertMgmt Service Status Snapshot", <br>&nbsp; "version": Cloud-Connect-Version, <br>&nbsp; "build-no": CertMgmnt-build-no, <br>&nbsp; "status": "IN_SERVICE", <br>&nbsp; "status_data": "message_if_service_fails", <br>&nbsp; "server_time": &lt;host.current_time.isoformat()&gt;, <br>&nbsp; "up_since": &lt;host.up_time.isoformat()&gt;, <br>&nbsp; "up_time": &lt;no_of_days/hours/mins/seconds&gt;, <br>&nbsp; "db_status" : "IN_SERVICE", <br> "cluster": { <br>&nbsp; "nodes": [ <br>&nbsp; { <br>&nbsp;&nbsp; "primary": true, <br>&nbsp;&nbsp; "host_fqdn": "cconnectsub106.stooges.icm" <br>&nbsp; }, <br>&nbsp; { <br>&nbsp;&nbsp; "primary": false, <br>&nbsp;&nbsp; "host_fqdn": "cconnectpub106.stooges.icm" <br>&nbsp; } <br>&nbsp; ] <br> }, <br> "onboard_count": &lt;active_onboard_nodes&gt;, <br> "managed_hosts": [ <-- for detail=true <br>&nbsp; { <br>&nbsp;&nbsp; "url" : "certmgmt/host/&lt;host.id&gt;" <br>&nbsp;&nbsp; "host_id":&lt;host_id&gt;, <br>&nbsp;&nbsp; "hostname":&lt;hostname&gt;, <br>&nbsp;&nbsp; "last_contact_time":&lt;last_contact_time&gt; <br>&nbsp;} <br>&nbsp; ] <br> } |
 | Success Response Status | 200 |
 
 ## ClientScripts
@@ -168,7 +168,7 @@
 | Authentication Mechanism | Basic Auth with CConnect Username - Password |
 | Request Headers | 'Content-type': 'application/json',  <br> 'Accept': 'application/json' |
 | Response Headers | As per table |
-| Response Body | { <br>&nbsp; "affected_criteria": [<br>&nbsp; { "url": "certmgmt/node_criteria" }, <br>&nbsp; { "url": "certmgmt/cert_criteria/INFO" }, <br>&nbsp; { "url": "certmgmt/cert_criteria/WARN" }... <br>] <br> } |
+| Response Body | { <br>&nbsp; "affected_criteria": [<br>&nbsp; { "url": "certmgmt/host_criteria" }, <br>&nbsp; { "url": "certmgmt/cert_criteria/INFO" }, <br>&nbsp; { "url": "certmgmt/cert_criteria/WARN" }... <br>] <br> } |
 | Success Response Status | 200 |
 
 ## CertificateExpiryAlertConfiguration
@@ -207,7 +207,7 @@
 ### FetchHostUnavailabilityAlertConfig
 | Key | Value |
 | --- | --- |
-| Method - Endpoint | GET - /certmgmt/node_alert_configs |
+| Method - Endpoint | GET - /certmgmt/host_alert_configs |
 | Authentication Mechanism | Basic Auth with CConnect Username - Password |
 | Request Headers | 'Content-type': 'application/json',  <br> 'Accept': 'application/json' |
 | Response Headers | As per table |
@@ -217,7 +217,7 @@
 ### UpdateHostUnavailabilityAlertConfig
 | Key | Value |
 | --- | --- |
-| Method - Endpoint | PUT - /certmgmt/node_alert_configs |
+| Method - Endpoint | PUT - /certmgmt/host_alert_configs |
 | Authentication Mechanism | Basic Auth with CConnect Username - Password |
 | Request Headers | 'Content-type': 'application/json',  <br> 'Accept': 'application/json' |
 | Request Body | {<br>&nbsp; "enabled": &lt;true/false&gt;, <br>&nbsp; "email_list_ids": &lt;[email_list_id1, email_list_id2]&gt;, <br>&nbsp; "max_days_checkin_delay": &lt;unavailable_days&gt; <br>} |
@@ -237,10 +237,10 @@
 | Response Body | {<br>&nbsp;&nbsp;"alerts": [<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"datetime": "&lt;datetime.isoformat()&gt;",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"host_id": "&lt;host_id&gt;",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"details": {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"title": "&lt;Email Subject&gt;",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"key1": "&lt;value1&gt;", <!-- for example, "last_contact_time" --> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"key2": "&lt;value2&gt;"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Add more key-value pairs as needed<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;]<br>} |
 | Success Response Status | 200 |
 
-### GetGeneratedNodeUnavailabilityEmailAlerts
+### GetGeneratedHostUnavailabilityEmailAlerts
 | Key | Value |
 | --- | --- |
-| Method - Endpoint | GET - /certmgmt/node_alert_configs/alerts |
+| Method - Endpoint | GET - /certmgmt/host_alert_configs/alerts |
 | Authentication Mechanism | Basic Auth with CConnect Username - Password |
 | Request Headers | 'Content-type': 'application/json',  <br> 'Accept': 'application/json' |
 | Request Param | from_dt = &lt;YYYYMMDD&gt;<br>to_dt = &lt;YYYYMMDD&gt; |
@@ -248,15 +248,15 @@
 | Response Body | {<br>&nbsp;&nbsp;"alerts": [<br>&nbsp;&nbsp;&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"datetime": "&lt;datetime.isoformat()&gt;",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"host_id": "&lt;host_id&gt;",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"details": {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"title": "&lt;Email Subject&gt;",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"key1": "&lt;value1&gt;", <!-- for example, "last_contact_time" --> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"key2": "&lt;value2&gt;"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Add more key-value pairs as needed<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;]<br>} |
 | Success Response Status | 200 |
 
-### GetGeneratedNodeSpecificEmailAlerts
+### GetGeneratedHostSpecificEmailAlerts
 | Key | Value |
 | --- | --- |
 | Method - Endpoint | GET - /certmgmt/host/&lt;host_id&gt;/alerts |
 | Authentication Mechanism | Basic Auth with CConnect Username - Password |
 | Request Headers | 'Content-type': 'application/json',  <br> 'Accept': 'application/json' |
-| Request Param | from_dt = &lt;YYYYMMDD&gt;<br>to_dt = &lt;YYYYMMDD&gt;<br>type = &lt;certificate/node&gt;<br>level = &lt;INFO/WARN/HIGH/ERROR&gt; |
+| Request Param | from_dt = &lt;YYYYMMDD&gt;<br>to_dt = &lt;YYYYMMDD&gt;<br>type = &lt;certificate/host&gt;<br>level = &lt;INFO/WARN/HIGH/ERROR&gt; |
 | Response Headers | As per table |
-| Response Body | {<br> "alerts": [<br>&nbsp; {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "type": "&lt;certificate/node&gt;",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"level": "&lt;INFO/WARN/HIGH/ERROR&gt;",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "host_id": "&lt;host_id&gt;",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "datetime": "&lt;datetime.isoformat()&gt;",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "details": {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "title": "&lt; "&lt;Email Subject&gt;",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "key1": "&lt;value1&gt;",  // Example: "cn", "serial_number", etc.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "key2": "&lt;value2&gt;,"  // Add more key-value pairs as needed<br>&nbsp;&nbsp; }<br>&nbsp; }<br> ]<br>} |
+| Response Body | {<br> "alerts": [<br>&nbsp; {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "type": "&lt;certificate/host&gt;",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"level": "&lt;INFO/WARN/HIGH/ERROR&gt;",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "host_id": "&lt;host_id&gt;",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "datetime": "&lt;datetime.isoformat()&gt;",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "details": {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "title": "&lt; "&lt;Email Subject&gt;",<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "key1": "&lt;value1&gt;",  // Example: "cn", "serial_number", etc.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "key2": "&lt;value2&gt;,"  // Add more key-value pairs as needed<br>&nbsp;&nbsp; }<br>&nbsp; }<br> ]<br>} |
 | Success Response Status | 200 |
 
 ## CertificateManagement
